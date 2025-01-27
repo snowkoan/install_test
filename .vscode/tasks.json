@@ -7,12 +7,20 @@
             "command": "cl.exe",
             "args": [
                 "/Zi",
-                "/Od",
+                "/O1", // Optimize for size
+                "/GL", // Whole program optimization
                 "/EHsc",
+                "/MT", // statically linked C runtime
+                "/sdl", // Extra security checks
+                "/W4", 
+                "/WX", // Treat warnings as errors
                 "/Fd${workspaceFolder}\\${env:Platform}\\",
                 "/Fo${workspaceFolder}\\${env:Platform}\\",
                 "/Fe${workspaceFolder}\\${env:Platform}\\${workspaceFolderBasename}.exe",
-                "${workspaceFolder}/*.cpp"
+                "${workspaceFolder}/*.cpp",
+                "/link", // linker options start
+                "/MANIFEST:EMBED",
+                "/MANIFESTINPUT:app.manifest", 
             ],
             "options": {
                 "cwd": "${fileDirname}"

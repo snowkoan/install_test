@@ -15,7 +15,7 @@ void show_usage(const wchar_t* cmd)
     wprintf(L"\n");
     wprintf(L"Usage: %ls [-s][-f][-w]\n", cmd);
     wprintf(L"  -s <servicename> - Open service for read and wait to close the handle\n");
-    wprintf(L"  -f <filename> [sharing flags (1=read, 2=write, 4=delete)]- Open file for read and wait to close the handle\n");
+    wprintf(L"  -f <filename> [sharing flags (1=read, 2=write, 4=delete)] - Open file for read and wait to close the handle\n");
     wprintf(L"  -e <exe> <filepath> Copy exe to filename and execute it. Wait to close the handle\n");
     wprintf(L"\n");
 }
@@ -213,8 +213,7 @@ int wmain(int argc, const wchar_t* argv[])
     operation op = operation::INVALID;
     int result = EXIT_FAILURE;
 
-    const wchar_t* service_name;
-
+    std::wstring service_name;
     std::wstring file_name;
     std::wstring exe_name;
     int sharing_flags = 0;
@@ -277,7 +276,7 @@ int wmain(int argc, const wchar_t* argv[])
 
     switch (op) {
       case operation::SERVICE_OPEN_WAIT:
-        service_open_wait(service_name);
+        service_open_wait(service_name.c_str());
         break;
       case operation::FILE_OPEN_WAIT:
         file_open_wait(file_name.c_str(), sharing_flags);
